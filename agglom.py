@@ -2,7 +2,7 @@ from sklearn import cluster
 from scipy.cluster import hierarchy
 import numpy as np
 
-feature_set = np.load('./script_data/reduced.npy')
+feature_set = np.load('./script_data/reduced.npy', allow_pickle=True)
 print('feature set loaded')
 
 agglo = cluster.AgglomerativeClustering(n_clusters=8)
