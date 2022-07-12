@@ -10,6 +10,7 @@ print('agglomerative clustering object created')
 
 cluster_assignment = agglo.fit(feature_set)
 print('feature set analyzed')
+
 np.save('./script_data/clust', cluster_assignment)
 print('made it this far!')
 
