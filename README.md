@@ -1,12 +1,26 @@
 # knat
 
-attempting to use machine learning do identify useful sub-populations in flow cytometry data on K. nataicola bacteria
+attempting to use machine learning do identify useful sub-populations
+in flow cytometry data on K. nataicola bacteria.
+
+Currently the code is seperated into three parts: link_to_clust.py is
+depreciated now that we use scikit-learn. save_and_scale.py pulls flow
+cytometry data from an .fcs file, transforms it to rfi, scales it down
+with sinh scaling, trims off less important channels, and then saves
+both a .csv and a .npy version of the data. agglom.py takes the .npy,
+loads it, creates an AgglomerativeClustering object to handle it, and
+fits that object to the data. It produces a numpy array of the clusters
+to which each observation is assigned, and saves that to clust.npy.
+plot_clust.py plots the data, highlighting the clusters with the dark2
+color palette.
 
 ## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+To make it easy for you to get started with GitLab, here's a list of
+recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Already a pro? Just edit this README.md and make it your own. Want to
+make it easy? [Use the template at the bottom](#editing-this-readme)!
 
 ## Add your files
 
