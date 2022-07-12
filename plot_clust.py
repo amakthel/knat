@@ -18,4 +18,4 @@ axes[2].scatter(feature_set[:, 2], feature_set[:, 0], s=20, c=clusters, cmap='gi
 axes[2].set_xlabel('FL1-A')
 axes[2].set_ylabel('FSC-A')
 
-plt.savefig('./plots/cluster_plots.fig')
+plt.savefig('./plots/cluster_plots.png')
