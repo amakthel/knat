@@ -51,9 +51,16 @@ b_scaled = FlowCal.transform.transform(b_scaled,
                                        channels=None,
                                        transform_fxn=lambda x: x/8)
 print('flow cytometry data successfully scaled')
+if not os.path.exists('./script_data'):
+    os.mkdir('script_data')
+np.save('./script_data/pre-reduction', b_scaled)
+
 # all other features of the data set are either enormously correlated
 # or very low variance and are  therefore not needed for the analysis
 feature_set = b_scaled[:, ['FSC-A', 'SSC-A', 'FL1-A']]
+
+np.save('./script_data/post-reduction', feature_set)
+
 print('features successfully trimmed from the flow cytometry data')
 for cluster_number in range(3, 16):
     agglo = cluster.AgglomerativeClustering(n_clusters=cluster_number)
@@ -75,4 +82,6 @@ for cluster_number in range(3, 16):
     axs[1].set_ylabel('FL1-A')
     axs[2].set_xlabel('FL1-A')
     axs[2].set_ylabel('FSC-A')
+    if not os.path.exists('./plots/'):
+        os.mkdir('plots')
     plt.savefig('./plots/cluster_plots{:n}.png'.format(cluster_number))
