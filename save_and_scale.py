@@ -8,16 +8,24 @@ bead_file_name = 'beads-1.fcs'
 
 #you should not need to change the below code
 bead_path = '../beads/'+bead_file_name
-b = FlowCal.io.FCSData(bead_path)
+try:
+    b = FlowCal.io.FCSData(bead_path)
+except FileNotFoundError:
+    print('there is no file at '
+          + bead_path
+          + ' . make sure that you have the correct path')
+except Exception:
+    print('something unexpected went wrong while trying to process the
+           .fcs file. email iabenjamin@wpi.edu with this error.')
+else:
+    print('flow cytometry data successfully drawn from bead file')
 
-print('flow cytometry data successfully drawn from bead file')
-
-# Removes first 250 and last 100 events, used in FlowCal excel_ui script
-b = FlowCal.gate.start_end(b, num_start=250, num_end=100)
-# this converts the raw voltage values for FL1-A (GFP-A) to Relative
-# Fluorescent Intensity (AU)
+# Removes first 250 and last 100 events,
+# used in FlowCal excel_ui script
+b = FlowCal.gatte.start_end(b, num_start=250, num_end=100)
+# this converts the raw voltage values for FL1-A (GFP-A) to
+# Relative Fluorescent Intensity (AU)
 b_transformed = FlowCal.transform.to_rfi(b, channels='FL1-A')
-
 print('flow cytometry data successfully transformed to rfi')
 
 # FSCData type arrays have additional features compared to numpy arrays.
@@ -43,7 +51,6 @@ b_scaled = FlowCal.transform.transform(b_transformed,
 b_scaled = FlowCal.transform.transform(b_scaled,
                                        channels=None,
                                        transform_fxn=lambda x: x/8)
-
 print('flow cytometry data successfully scaled')
 
 # all other features of the data set are either enormously correlated
@@ -53,6 +60,4 @@ if not os.path.exists('script_data'):
     os.mkdir('script_data')
 np.savetxt('./script_data/reduced.csv', feature_set, delimiter=",")
 np.save('./script_data/reduced', feature_set)
-
 print('feature set successfully trimmed from flow cytometry data: ')
-print(feature_set)
