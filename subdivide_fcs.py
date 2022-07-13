@@ -55,7 +55,7 @@ print('flow cytometry data successfully scaled')
 # or very low variance and are  therefore not needed for the analysis
 feature_set = b_scaled[:, ['FSC-A', 'SSC-A', 'FL1-A']]
 print('features successfully trimmed from the flow cytometry data')
-for cluster_number in range(3:16):
+for cluster_number in range(3, 16):
     agglo = cluster.AgglomerativeClustering(n_clusters=cluster_number)
     print('agglomerative clustering object ({:n} clusters) created'\
             .format(cluster_number))
