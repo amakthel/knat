@@ -6,12 +6,12 @@ try:
     feature_set = np.load('./script_data/reduced.npy',
                           allow_pickle=True)
 except FileNotFoundError:
-    print('there is no file at ./script_data/reduced.npy. have you
-           run save_and_scale.py yet?')
+    print('there is no file at ./script_data/reduced.npy. have you '
+        + 'run save_and_scale.py yet?')
 except Exception:
-    print('something unexpected has gone wrong while trying to load
-           the feature set from ./script_data/reduced.npy. email
-           iabenjamin@wpi.edu with this error.')
+    print('something unexpected has gone wrong while trying to load '
+        + 'the feature set from ./script_data/reduced.npy. email '
+        + 'iabenjamin@wpi.edu with this error.')
 else:
     print('feature set loaded')
 

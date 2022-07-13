@@ -15,18 +15,19 @@ except FileNotFoundError:
           + bead_path
           + ' . make sure that you have the correct path')
 except Exception:
-    print('something unexpected went wrong while trying to process the
-           .fcs file. email iabenjamin@wpi.edu with this error.')
+    print('something unexpected went wrong while trying to process the '
+        + '.fcs file. email iabenjamin@wpi.edu with this error.')
 else:
     print('flow cytometry data successfully drawn from bead file')
 
 # Removes first 250 and last 100 events,
 # used in FlowCal excel_ui script
-b = FlowCal.gatte.start_end(b, num_start=250, num_end=100)
+b = FlowCal.gate.start_end(b, num_start=250, num_end=100)
 # this converts the raw voltage values for FL1-A (GFP-A) to
 # Relative Fluorescent Intensity (AU)
 b_transformed = FlowCal.transform.to_rfi(b, channels='FL1-A')
-print('flow cytometry data successfully transformed to rfi')
+print('flow cytometry data successfully transformed to Relative '
+    + 'Fluorescent Intensity')
 
 # FSCData type arrays have additional features compared to numpy arrays.
 # A non-exhaustive list:
