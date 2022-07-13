@@ -59,20 +59,20 @@ for cluster_number in range(3, 16):
     agglo = cluster.AgglomerativeClustering(n_clusters=cluster_number)
     print('agglomerative clustering object ({:n} clusters) created'\
             .format(cluster_number))
-    with agglo.fit_predict(feature_set) as cluster_assignment:
-        print('feature set analyzed into {:n} clusters'\
-                .format(cluster_number))
-        fig, axs = plt.subplots(1, 3, figsize=[14.4, 4.8])
-        for n in range(np.shape(axs)[0]):
-            axs[n].scatter(feature_set[:, n],
-                            feature_set[:, (n+1)%3],
-                            s=1,
-                            c=cluster_assignment,
-                            cmap='gist_rainbow')
-        axs[0].set_xlabel('FSC-A')
-        axs[0].set_ylabel('SSC-A')
-        axs[1].set_xlabel('SSC-A')
-        axs[1].set_ylabel('FL1-A')
-        axs[2].set_xlabel('FL1-A')
-        axs[2].set_ylabel('FSC-A')
-        plt.savefig('./plots/cluster_plots{:n}.png'.format(number_of_clusters))
+    cluster_assignment = agglo.fit_predict(feature_set)
+    print('feature set analyzed into {:n} clusters'\
+            .format(cluster_number))
+    fig, axs = plt.subplots(1, 3, figsize=[14.4, 4.8])
+    for n in range(np.shape(axs)[0]):
+        axs[n].scatter(feature_set[:, n],
+                        feature_set[:, (n+1)%3],
+                        s=1,
+                        c=cluster_assignment,
+                        cmap='gist_rainbow')
+    axs[0].set_xlabel('FSC-A')
+    axs[0].set_ylabel('SSC-A')
+    axs[1].set_xlabel('SSC-A')
+    axs[1].set_ylabel('FL1-A')
+    axs[2].set_xlabel('FL1-A')
+    axs[2].set_ylabel('FSC-A')
+    plt.savefig('./plots/cluster_plots{:n}.png'.format(number_of_clusters))
