@@ -5,7 +5,7 @@ import numpy as np
 feature_set = np.load('./script_data/reduced.npy', allow_pickle=True)
 print('feature set loaded')
 
-agglo = cluster.AgglomerativeClustering(n_clusters=8)
+agglo = cluster.AgglomerativeClustering(n_clusters=4)
 print('agglomerative clustering object created')
 
 cluster_assignment = agglo.fit_predict(feature_set)
