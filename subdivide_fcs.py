@@ -59,7 +59,7 @@ for cluster_number in range(3, 16):
     agglo = cluster.AgglomerativeClustering(n_clusters=cluster_number)
     print('agglomerative clustering object ({:n} clusters) created'\
             .format(cluster_number))
-    with cluster_assignment as agglo.fit_predict(feature_set):
+    with agglo.fit_predict(feature_set) as cluster_assignment:
         print('feature set analyzed into {:n} clusters'\
                 .format(cluster_number))
         fig, axs = plt.subplots(1, 3, figsize=[14.4, 4.8])
