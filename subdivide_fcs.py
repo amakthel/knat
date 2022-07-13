@@ -75,4 +75,4 @@ for cluster_number in range(3, 16):
     axs[1].set_ylabel('FL1-A')
     axs[2].set_xlabel('FL1-A')
     axs[2].set_ylabel('FSC-A')
-    plt.savefig('./plots/cluster_plots{:n}.png'.format(number_of_clusters))
+    plt.savefig('./plots/cluster_plots{:n}.png'.format(cluster_number))
