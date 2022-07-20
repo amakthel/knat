@@ -79,7 +79,8 @@ def cluster(path_input)
             ]
     trimmed_data = scaled_data[:, kept_channels]
 
-    #corr_coeffs = np.corrcoef(trimmed_data, rowvar=False)
+    corr_coeffs = np.corrcoef(trimmed_data, rowvar=False)
+    np.save(corr_path, corr_coeffs)
     
 
     feature_set = trimmed_data
@@ -88,6 +89,7 @@ def cluster(path_input)
     np.save('./script_data/'+file_name+'/post-reduction', feature_set)
 
     print('features successfully trimmed from the flow cytometry data')
+
     for cluster_number in range(3, 16):
         agglo = cluster.AgglomerativeClustering(n_clusters=cluster_number)
         print('agglomerative clustering object ({:n} clusters) created'\
