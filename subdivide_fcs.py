@@ -73,8 +73,8 @@ def cluster(path_input):
         return variances[n] < 0.01
     kept_channels = [
             channel_names[i]
-            in i 
-            for range(number_of_channels) 
+            for i 
+            in range(number_of_channels) 
             if not invalid(i)
             ]
     trimmed_data = scaled_data[:, kept_channels]
