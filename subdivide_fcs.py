@@ -9,7 +9,7 @@ from scipy.cluster import hierarchy
 def sinhScaling(x):
     return np.arcsinh(x)/np.log(10)
 
-def cluster(path_input)
+def cluster(path_input):
     file_name = path_input[:-4]
     file_path = '../beads/'+path_input
 
