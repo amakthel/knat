@@ -88,7 +88,7 @@ def cluster(dir_path, path_input):
 
     scaler = prep.StandardScaler()
     pca2 = decomp.PCA(n_components=2)
-    centered_data = scaler.transform(trimmed_data)
+    centered_data = scaler.fit_transform(trimmed_data)
     feature_set = pca2.fit_transform(centered_data)
 
     np.save('./script_data/'+dir_path+'/'+file_name+'/post-reduction', feature_set)
