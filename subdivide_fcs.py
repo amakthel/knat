@@ -132,3 +132,4 @@ def subdivide(dir_path, path_input):
         if not os.path.exists('./plots/'+dir_path+'/'+file_name):
             os.mkdir('plots/'+dir_path+'/'+file_name)
         plt.savefig('./plots/'+dir_path+'/'+file_name+'/cluster_plots{:n}.png'.format(cluster_number))
+        plt.close(fig)
