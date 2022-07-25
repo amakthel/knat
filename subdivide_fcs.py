@@ -104,18 +104,18 @@ def subdivide(dir_path, path_input):
                 .format(cluster_number))
         fig, axs = plt.subplots(1, 3, figsize=[14.4, 4.8])
 
-        axs[0].scatter(trimmed_data[:, ['FSC-A']],
-                       trimmed_data[:, ['SSC-A']],
+        axs[0].scatter(scaled_data[:, ['FSC-A']],
+                       scaled_data[:, ['SSC-A']],
                        s=0.1,
                        c=cluster_assignment,
                        cmap='gist_rainbow')
-        axs[1].scatter(trimmed_data[:, ['SSC-A']],
-                       trimmed_data[:, ['FL1-A']],
+        axs[1].scatter(scaled_data[:, ['SSC-A']],
+                       scaled_data[:, ['FL1-A']],
                        s=0.1,
                        c=cluster_assignment,
                        cmap='gist_rainbow')
-        axs[2].scatter(trimmed_data[:, ['FL1-A']],
-                       trimmed_data[:, ['FSC-A']],
+        axs[2].scatter(scaled_data[:, ['FL1-A']],
+                       scaled_data[:, ['FSC-A']],
                        s=0.1,
                        c=cluster_assignment,
                        cmap='gist_rainbow')
