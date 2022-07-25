@@ -1,6 +1,7 @@
 import FlowCal
 import os
 import numpy as np
+import statistics as st
 import matplotlib.pyplot as plt
 from sklearn import preprocessing as prep
 from sklearn import decomposition as decomp
