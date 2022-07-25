@@ -1,7 +1,9 @@
 import os
 import subdivide_fcs
 
-file_paths = [f for f in os.listdir('../samples') if os.path.isfile('../samples'+'/'+f)]
+folders = ['beads', 'samples']
 
-for file_path in file_paths:
-    subdivide_fcs.cluster(file_path)
+for folder in folders:
+    names = [f for f in os.listdir('../'+folder) if os.path.isfile('../'+folder+'/'+f)]
+    for name in names:
+        subdivide_fcs.cluster(folder, name)
