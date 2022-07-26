@@ -87,13 +87,20 @@ def subdivide(dir_path, path_input):
     np.save(covs_path, covars)
 
     scaler = prep.StandardScaler()
-    pca2 = decomp.PCA(n_components=2)
+    pca2 = decomp.PCA(n_components=3)
     centered_data = scaler.fit_transform(trimmed_data)
     feature_set = pca2.fit_transform(centered_data)
 
     np.save('./script_data/'+dir_path+'/'+file_name+'/post-reduction', feature_set)
 
     print('excess features successfully trimmed from the flow cytometry data')
+
+    channel_pairs = [
+            [('FSC-A', 'SSC-A'), ('FSC-A', 'SSC_1-A'), ('FSC-A', 'FL1-A'), ('FSC-A', 'FL2-A'), ('FSC-A', 'FL3-A'), ('FSC-A', 'FL4-A'), ('FSC-A', 'FL5-A')], 
+            [('SSC-A', 'SSC_1-A'), ('SSC-A', 'FL1-A'), ('SSC-A', 'FL2-A'), ('SSC-A', 'FL3-A'), ('SSC-A', 'FL4-A'), ('SSC-A', 'FL5-A'), ('SSC_1-A', 'FL1-A')],
+            [('SSC_1-A', 'FL2-A'), ('SSC_1-A', 'FL3-A'), ('SSC_1-A', 'FL4-A'), ('SSC_1-A', 'FL5-A'), ('FL1-A', 'FL2-A'), ('FL1-A', 'FL3-A'), ('FL1-A', 'FL4-A')],
+            [('FL1-A', 'FL5-A'), ('FL2-A', 'FL3-A'), ('FL2-A', 'FL4-A'), ('FL2-A', 'FL5-A'), ('FL3-A', 'FL4-A'), ('FL3-A', 'FL5-A'), ('FL4-A', 'FL5-A')]
+            ]
 
     for cluster_number in range(3, 16):
         agglo = cluster.AgglomerativeClustering(n_clusters=cluster_number)
@@ -102,29 +109,20 @@ def subdivide(dir_path, path_input):
         cluster_assignment = agglo.fit_predict(feature_set)
         print('feature set analyzed into {:n} clusters'\
                 .format(cluster_number))
-        fig, axs = plt.subplots(1, 3, figsize=[14.4, 4.8])
 
-        axs[0].scatter(scaled_data[:, ['FSC-A']],
-                       scaled_data[:, ['SSC-A']],
-                       s=0.1,
-                       c=cluster_assignment,
-                       cmap='gist_rainbow')
-        axs[1].scatter(scaled_data[:, ['SSC-A']],
-                       scaled_data[:, ['FL1-A']],
-                       s=0.1,
-                       c=cluster_assignment,
-                       cmap='gist_rainbow')
-        axs[2].scatter(scaled_data[:, ['FL1-A']],
-                       scaled_data[:, ['FSC-A']],
-                       s=0.1,
-                       c=cluster_assignment,
-                       cmap='gist_rainbow')
-        axs[0].set_xlabel('FSC-A')
-        axs[0].set_ylabel('SSC-A')
-        axs[1].set_xlabel('SSC-A')
-        axs[1].set_ylabel('FL1-A')
-        axs[2].set_xlabel('FL1-A')
-        axs[2].set_ylabel('FSC-A')
+        fig, axs = plt.subplots(4, 7, figsize=[4.8*7, 4.8*4])
+        for i in range(4):
+            for j in range(7):
+                axs[i][j].scatter(
+                        scaled_data[:, [channel_pairs[i][j][0]]],
+                        scaled_data[:, [channel_pairs[i][j][1]]],
+                        s=0.1,
+                        c=cluster_assignment,
+                        cmap='gist_rainbow'
+                        )
+                axs[i][j].set_xlabel(channel_pairs[i][j][0])
+                axs[i][j].set_ylabel(channel_pairs[i][j][1])
+
         if not os.path.exists('./plots/'):
             os.mkdir('plots')
         if not os.path.exists('./plots/'+dir_path):
